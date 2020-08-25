@@ -32,7 +32,8 @@ const IndexPage = () => {
       <div>{isInitialized && JSON.stringify(liff.getContext())}</div>
       <div>{isInitialized && JSON.stringify(liff.isInClient())}</div>
       <div>{isInitialized && JSON.stringify(liff.isLoggedIn())}</div>
-      <div>{isInitialized && JSON.stringify(liff.ready)}</div>
+      <div>{isInitialized && JSON.stringify(liff.getAccessToken())}</div>
+      <div>{isInitialized && JSON.stringify(liff.getDecodedIDToken())}</div>
       <div>
         <button onClick={onLogin}>ログインする</button>
       </div>
