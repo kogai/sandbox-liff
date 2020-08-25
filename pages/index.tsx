@@ -20,7 +20,10 @@ const IndexPage = () => {
   }, []);
 
   const onSendMessage = React.useCallback(() => {
-    liff.sendMessages([{ type: "text", text: "hello!" }]);
+    liff
+      .sendMessages([{ type: "text", text: "hello!" }])
+      .then(() => alert("done"))
+      .catch((err) => alert(err));
   }, []);
 
   return (
