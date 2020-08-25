@@ -1,37 +1,45 @@
 import React from "react";
-import Link from "next/link";
-// import liff from "@line/liff";
-import Layout from "../components/Layout";
-import getConfig from "next/config";
-
-const { publicRuntimeConfig } = getConfig();
+import { render } from "react-dom";
+import liff from "@line/liff";
 
 const IndexPage = () => {
-  const ctxRef = React.useRef(null);
+  // const liffRef = React.useRef<typeof liff | null>(null);
+  const [isInitialized, setIsInitialized] = React.useState(false);
+
   React.useEffect(() => {
-    // console.log(liff.getContext());
-    import("@line/liff").then((liff) => {
-      console.log("process.browser", process.browser);
-      // console.log(liff);
-      console.log(publicRuntimeConfig);
-      // @ts-ignore
-      ctxRef.current = liff.getContext();
-      // @ts-ignore
-      liff.init({ liffId: publicRuntimeConfig.liffID });
+    if (isInitialized) {
+      return;
+    }
+    liff.init({ liffId: process.env.LIFF_ID || "" }).then(() => {
+      setIsInitialized(true);
     });
+  }, [isInitialized]);
+
+  const onLogin = React.useCallback(() => {
+    liff.login();
+  }, []);
+
+  const onSendMessage = React.useCallback(() => {
+    liff.sendMessages([{ type: "text", text: "hello!" }]);
   }, []);
 
   return (
-    <Layout title="Home | Next.js + TypeScript Example">
+    <>
       <h1>Hello Next.js 👋</h1>
-      {JSON.stringify(ctxRef.current)}
-      <p>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </p>
-    </Layout>
+      <div>{isInitialized && JSON.stringify(liff.getContext())}</div>
+      <div>{isInitialized && JSON.stringify(liff.isInClient())}</div>
+      <div>{isInitialized && JSON.stringify(liff.isLoggedIn())}</div>
+      <div>{isInitialized && JSON.stringify(liff.ready)}</div>
+      <div>
+        <button onClick={onLogin}>ログインする</button>
+      </div>
+      <div>
+        <button onClick={onSendMessage}>メッセージ送信</button>
+      </div>
+    </>
   );
 };
 
-export default IndexPage;
+render(<IndexPage />, document.body, function done() {
+  console.log("Installed.");
+});
