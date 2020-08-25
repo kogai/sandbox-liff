@@ -1,5 +1,5 @@
 module.exports = {
-  serverRuntimeConfig: {
+  publicRuntimeConfig: {
     liffID: process.env.LIFF_ID,
   },
 };

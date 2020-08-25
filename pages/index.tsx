@@ -1,14 +1,20 @@
 import React from "react";
-import liff from "@line/liff";
 import Link from "next/link";
 import Layout from "../components/Layout";
 import getConfig from "next/config";
 
-const { serverRuntimeConfig } = getConfig();
+const { publicRuntimeConfig } = getConfig();
 
 const IndexPage = () => {
   React.useEffect(() => {
-    liff.init({ liffId: serverRuntimeConfig.liffID });
+    // import liff from "@line/liff";
+    import("@line/liff").then((liff) => {
+      console.log("process.browser", process.browser);
+      // console.log(liff);
+      console.log(publicRuntimeConfig);
+      // @ts-ignore
+      liff.init({ liffId: publicRuntimeConfig.liffID });
+    });
   }, []);
 
   return (
