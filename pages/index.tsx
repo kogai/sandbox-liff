@@ -29,6 +29,7 @@ const IndexPage = () => {
   return (
     <>
       <h1>Hello Next.js 👋</h1>
+      {JSON.stringify(location.search)}
       <div>{isInitialized && JSON.stringify(liff.getContext())}</div>
       <div>{isInitialized && JSON.stringify(liff.isInClient())}</div>
       <div>{isInitialized && JSON.stringify(liff.isLoggedIn())}</div>
