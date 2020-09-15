@@ -19,6 +19,10 @@ const IndexPage = () => {
     liff.login();
   }, []);
 
+  const onLogout = React.useCallback(() => {
+    liff.logout();
+  }, []);
+
   const onSendMessage = React.useCallback(() => {
     liff
       .sendMessages([{ type: "text", text: "hello!" }])
@@ -35,10 +39,14 @@ const IndexPage = () => {
       <div>{isInitialized && JSON.stringify(liff.isLoggedIn())}</div>
       <div>{isInitialized && JSON.stringify(liff.getAccessToken())}</div>
       <div>{isInitialized && JSON.stringify(liff.getDecodedIDToken())}</div>
-      <div>
+      <div>{isInitialized && JSON.stringify(liff.getProfile())}</div>
+      <div style={{ margin: 10 }}>
         <button onClick={onLogin}>ログインする</button>
       </div>
-      <div>
+      <div style={{ margin: 10 }}>
+        <button onClick={onLogout}>ログアウトする</button>
+      </div>
+      <div style={{ margin: 10 }}>
         <button onClick={onSendMessage}>メッセージ送信</button>
       </div>
     </>
