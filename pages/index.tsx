@@ -23,6 +23,12 @@ const IndexPage = () => {
     liff.logout();
   }, []);
 
+  const onSend = React.useCallback(() => {
+    setTimeout(() => {
+      liff.sendMessages([{ type: "text", text: "Here?" }]);
+    }, 3000);
+  }, []);
+
   const onSendMessage = React.useCallback(() => {
     liff
       .sendMessages([{ type: "text", text: "hello!" }])
@@ -48,6 +54,11 @@ const IndexPage = () => {
       </div>
       <div style={{ margin: 10 }}>
         <button onClick={onSendMessage}>メッセージ送信</button>
+      </div>
+      <div style={{ margin: 10 }}>
+        <button onClick={onSend} style={{ padding: 10 }}>
+          メッセージ遅延送信
+        </button>
       </div>
     </>
   );
