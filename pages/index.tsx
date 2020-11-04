@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import liff from "@line/liff";
 import VConsole from "vconsole";
+import { parse } from "query-string";
 
 const IndexPage = () => {
   // const liffRef = React.useRef<typeof liff | null>(null);
@@ -13,9 +14,11 @@ const IndexPage = () => {
     }
     new VConsole();
     console.log(setIsInitialized);
-    // liff.init({ liffId: process.env.LIFF_ID || "" }).then(() => {
-    //   setIsInitialized(true);
-    // });
+    const { liffid } = parse(location.search);
+    alert(liffid);
+    liff.init({ liffId: liffid as string }).then(() => {
+      setIsInitialized(true);
+    });
   }, [isInitialized]);
 
   const onLogin = React.useCallback(() => {
