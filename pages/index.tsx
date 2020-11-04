@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import liff from "@line/liff";
+import VConsole from "vconsole";
 
 const IndexPage = () => {
   // const liffRef = React.useRef<typeof liff | null>(null);
@@ -10,9 +11,11 @@ const IndexPage = () => {
     if (isInitialized) {
       return;
     }
-    liff.init({ liffId: process.env.LIFF_ID || "" }).then(() => {
-      setIsInitialized(true);
-    });
+    new VConsole();
+    console.log(setIsInitialized);
+    // liff.init({ liffId: process.env.LIFF_ID || "" }).then(() => {
+    //   setIsInitialized(true);
+    // });
   }, [isInitialized]);
 
   const onLogin = React.useCallback(() => {
